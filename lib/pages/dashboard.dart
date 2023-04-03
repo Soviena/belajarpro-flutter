@@ -71,7 +71,7 @@ class _DashboardState extends State<Dashboard> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          return print("Pilih Course");
+          Navigator.pushNamed(context, 'listcourse');
         }),
     );
   }
