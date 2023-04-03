@@ -4,7 +4,7 @@ import 'package:belajar_pro/pages/listCourse.dart';
 import 'package:belajar_pro/pages/forum.dart';
 
 void main() => runApp(MaterialApp(
-  initialRoute: '/listcourse',
+  initialRoute: '/dashboard',
   routes: {
     '/dashboard': (context) => Dashboard(),
     '/forum': (context) => Forum(),
