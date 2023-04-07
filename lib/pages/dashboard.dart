@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 final List<String> entries = <String>['Python', 'HTML', 'C++'];
-final List<int> colorCodes = <int>[600, 500, 100];
+
+final List<String> images = <String>[
+  'assets/images/python.jpg',
+  'assets/images/html.png',
+  'assets/images/cpp.jpg'
+];
 
 class Dashboard extends StatefulWidget {
   @override
@@ -12,15 +17,6 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Selamat Malam Username",
-          style: TextStyle(
-            fontSize: 30.0,
-            color: Color.fromRGBO(255, 250, 250, 1),
-          ),
-        ),
-      ),
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
@@ -31,72 +27,106 @@ class _DashboardState extends State<Dashboard> {
           children: [
             SizedBox(height: 10),
             Container(
-              child: Text(
-                "Daftar Kursus",
-                style: TextStyle(
-                  fontSize: 30.0,
-                  color: Color.fromARGB(255, 236, 236, 236),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      // Handle menu button press
+                    },
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(Icons.message),
+                    onPressed: () {
+                      // Handle message button press
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Selamat Pagi Username",
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    color: Color.fromARGB(255, 255, 253, 253),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
             Container(
-              child: Text(
-                "List Yang Diikuti ",
-                style: TextStyle(
-                    fontSize: 30.0, color: Color.fromARGB(255, 236, 236, 236)),
-              ),
-            ),
-            TextButton(
+              child: TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/forum');
                 },
-                child: Text(
-                  "Menuju forum",
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 236, 236, 236),
-                      fontSize: 15.0),
-                )),
-            Expanded(
-                child: ListView.builder(
-                    padding: EdgeInsets.all(8),
-                    itemCount: entries.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        child: Container(
-                          margin: EdgeInsets.all(20),
-                          color: Color.fromARGB(255, 33, 139, 226),
-                          height: 80,
-                          child: Text(
-                            entries[index],
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 255, 253, 253)),
-                          ),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextFormField(
+                    decoration: new InputDecoration(
+                        labelText: "Daftar Kursus",
+                        enabled: false,
+                        
                         ),
-                      );
-                    })),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                //padding: EdgeInsets.all(8),
+                itemCount: entries.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/listcourse');
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(20),
+                      height: 80,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width: 250,
+                            height: 80,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              image: DecorationImage(
+                                image: AssetImage(images[index]),
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
             GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/listcourse');
+              },
               child: Container(
-
-                margin: EdgeInsets.fromLTRB(20, 10, 20, 90),
-                height: 30,
-                width: 200,
+                margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                height: 65,
+                width: 240,
                 child: Icon(Icons.add),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(40),
                   color: Color.fromARGB(255, 141, 141, 141),
                 ),
               ),
-              onTap: () {
-                Navigator.pushNamed(context, '/listcourse');
-
-              },
             )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        return print("Pilih Course");
-      }),
     );
   }
 }
