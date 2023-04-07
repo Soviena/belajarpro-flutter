@@ -120,7 +120,7 @@ class _DashboardState extends State<Dashboard> {
                 child: Icon(Icons.add),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
-                  color: Color.fromARGB(255, 141, 141, 141),
+                  color: Color.fromARGB(255, 107, 107, 107),
                 ),
               ),
             )
