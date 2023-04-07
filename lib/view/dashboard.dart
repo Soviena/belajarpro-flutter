@@ -122,15 +122,14 @@ class _DashboardState extends State<Dashboard> {
                         );
                       })),
               GestureDetector(
-                child: Container(
-        
+                child: Container(        
                   margin: EdgeInsets.fromLTRB(20, 10, 20, 90),
-                  height: 30,
-                  width: 200,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  width: MediaQuery.of(context).size.width * 0.6,
                   child: Icon(Icons.add),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    color: Color.fromARGB(255, 141, 141, 141),
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
                 ),
                 onTap: () {
@@ -142,10 +141,6 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/listcourse');
-        }),
     );
   }
 }
