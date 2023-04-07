@@ -71,7 +71,7 @@ class _DashboardState extends State<Dashboard> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, 'listcourse');
+          Navigator.pushNamed(context, '/listcourse');
         }),
     );
   }
