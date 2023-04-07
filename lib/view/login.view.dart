@@ -16,8 +16,8 @@ class LoginView extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Color.fromARGB(99, 165, 25, 216),
-                Color.fromARGB(255, 62, 5, 194)
+                Color.fromARGB(255, 36, 0, 255),
+                Color.fromARGB(255, 186, 49, 235),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -25,45 +25,40 @@ class LoginView extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(15.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
               Container(
-                alignment: Alignment.center,
+                margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.1),
+                alignment: Alignment.topCenter,
                 child: Text(
-                  'Belajar Pro',
+                  'Login',
                   style: TextStyle(
-                    color: GlobalColors.mainColor,
-                    fontSize: 35,
+                    color: Colors.white,
+                    fontSize: 55,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              const SizedBox(height: 50),
-              Text(
-                'Login to your account',
-                style: TextStyle(
-                  color: GlobalColors.textColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 15),
               TextFormGlobal(
                 controller: emailController,
                 text: 'email',
                 obscure: false,
                 textInputType: TextInputType.emailAddress,
+                margins: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1, bottom: 10)
               ),
-              const SizedBox(height: 15),
               TextFormGlobal(
                 controller: passwordController,
                 text: 'password',
                 textInputType: TextInputType.text,
                 obscure: true,
+                margins: EdgeInsets.symmetric(vertical: 10),
               ),
               Container(
-                child: ButtonGlobal(),
+                child: ButtonGlobal(
+                  text: "Login",
+                  margins: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
+                ),
                 margin: EdgeInsets.symmetric(vertical: 25),
               ),
               Container(child: SocialLogin()),

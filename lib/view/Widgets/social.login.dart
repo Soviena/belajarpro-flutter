@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/utils/global.colors.dart';
-import 'package:belajar_pro/view/Widgets/Register.view.dart';
+import 'package:belajar_pro/view/Register.view.dart';
 
 class SocialLogin extends StatelessWidget {
   const SocialLogin({Key? key}) : super(key: key);
@@ -14,6 +14,7 @@ class SocialLogin extends StatelessWidget {
           'Belum punya akun?',
           style: TextStyle(
             fontWeight: FontWeight.w600,
+            color: Colors.white60
           ),
         ),
         const SizedBox(width: 5),
@@ -27,8 +28,8 @@ class SocialLogin extends StatelessWidget {
           child: Text(
             'Daftar',
             style: TextStyle(
-              color: Colors.blue,
-              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,              
             ),
           ),
         ),

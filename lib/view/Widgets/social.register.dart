@@ -14,6 +14,7 @@ class SocialRegister extends StatelessWidget {
           'Sudah punya akun?',
           style: TextStyle(
             fontWeight: FontWeight.w600,
+            color: Colors.white60
           ),
         ),
         const SizedBox(width: 5),
@@ -27,8 +28,8 @@ class SocialRegister extends StatelessWidget {
           child: Text(
             'Masuk',
             style: TextStyle(
-              color: Colors.blue,
-              fontWeight: FontWeight.w600,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
