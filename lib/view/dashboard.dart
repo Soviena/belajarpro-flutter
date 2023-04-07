@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 final List<String> entries = <String>['Python', 'HTML', 'C++'];
-final List<int> colorCodes = <int>[600, 500, 100];
+
+final List<String> images = <String>[
+  'assets/images/python.jpg',
+  'assets/images/html.png',
+  'assets/images/cpp.jpg'
+];
 
 class Dashboard extends StatefulWidget {
   @override
@@ -12,140 +17,116 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-      ),
-      drawer: Drawer(
-        width: MediaQuery.of(context).size.width,    
-        backgroundColor: Colors.black,    
-        child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color.fromARGB(100, 36, 0, 255),
-                Color.fromARGB(100, 186, 49, 235),
-          ], begin: Alignment.topLeft, end: Alignment.bottomRight)),          
-          child: Column(
-            children: [
-              Container(
-                height: 56,
-                alignment: Alignment.topLeft,
-                child: IconButton(
-                  color: Colors.white,
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-              Container(
-                child: Expanded(
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: [
-                      ListTile(
-                        textColor: Colors.white,
-                        title: const Text('Item 1'),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      ListTile(
-                        textColor: Colors.white,
-                        title: const Text('Item 2'),
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-              Color.fromARGB(255, 36, 0, 255),
-              Color.fromARGB(255, 186, 49, 235),
+          Color.fromARGB(99, 165, 25, 216),
+          Color.fromARGB(255, 62, 5, 194)
         ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
-        child: Container(
-          margin: EdgeInsets.only(top: 56),
-          child: Column(
-            children: [
-              SizedBox(height: 10),
-              Container(
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            Container(
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.menu),
+                    onPressed: () {
+                      // Handle menu button press
+                    },
+                  ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(Icons.message),
+                    onPressed: () {
+                      // Handle message button press
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              child: Align(
+                alignment: Alignment.centerLeft,
                 child: Text(
-                  "Daftar Kursus",
+                  "Selamat Pagi Username",
                   style: TextStyle(
                     fontSize: 30.0,
-                    color: Color.fromARGB(255, 236, 236, 236),
+                    color: Color.fromARGB(255, 255, 253, 253),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              Container(
-                child: Text(
-                  "List Yang Diikuti ",
-                  style: TextStyle(
-                      fontSize: 30.0, color: Color.fromARGB(255, 236, 236, 236)),
+            ),
+            Container(
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/forum');
+                },
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextFormField(
+                    decoration: new InputDecoration(
+                        labelText: "Daftar Kursus",
+                        enabled: false,
+                        
+                        ),
+                  ),
                 ),
               ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/forum');
-                  },
-                  child: Text(
-                    "Menuju forum",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 236, 236, 236),
-                        fontSize: 15.0),
-                  )),
-              Expanded(
-                  child: ListView.builder(
-                      padding: EdgeInsets.all(8),
-                      itemCount: entries.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          child: Container(
-                            margin: EdgeInsets.all(20),
-                            color: Color.fromARGB(255, 33, 139, 226),
+            ),
+            Expanded(
+              child: ListView.builder(
+                //padding: EdgeInsets.all(8),
+                itemCount: entries.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/listcourse');
+                    },
+                    child: Container(
+                      margin: EdgeInsets.all(20),
+                      height: 80,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width: 250,
                             height: 80,
-                            child: Text(
-                              entries[index],
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 253, 253)),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              image: DecorationImage(
+                                image: AssetImage(images[index]),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
-                        );
-                      })),
-              GestureDetector(
-                child: Container(
-        
-                  margin: EdgeInsets.fromLTRB(20, 10, 20, 90),
-                  height: 30,
-                  width: 200,
-                  child: Icon(Icons.add),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color.fromARGB(255, 141, 141, 141),
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pushNamed(context, '/listcourse');
-        
+                        ],
+                      ),
+                    ),
+                  );
                 },
-              )
-            ],
-          ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/listcourse');
+              },
+              child: Container(
+                margin: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                height: 65,
+                width: 240,
+                child: Icon(Icons.add),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  color: Color.fromARGB(255, 141, 141, 141),
+                ),
+              ),
+            )
+          ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/listcourse');
-        }),
     );
   }
 }
