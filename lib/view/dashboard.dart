@@ -73,28 +73,31 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    //padding: EdgeInsets.all(8),
-                    itemCount: entries.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/listcourse');
-                        },
-                        child: Container(
-                          margin: EdgeInsets.all(20),
-                          height: 80,
-                          width: 250,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            image: DecorationImage(
-                              image: AssetImage(images[index]),
-                              fit: BoxFit.cover,
+                  child: Container(
+                    width: 350,
+                    child: ListView.builder(
+                      //padding: EdgeInsets.all(8),
+                      itemCount: entries.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/listcourse');
+                          },
+                          child: Container(
+                            margin: EdgeInsets.all(20),
+                            height: 80,
+                            width: 250,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              image: DecorationImage(
+                                image: AssetImage(images[index]),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
                 GestureDetector(

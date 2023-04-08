@@ -94,45 +94,48 @@ class _ListCourseState extends State<ListCourse> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    //padding: EdgeInsets.all(8),
-                    itemCount: course.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.all(20),
-                        height: 120,
-                        width: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: DecorationImage(
-                            image: AssetImage(images[index]),
-                            fit: BoxFit.cover,
+                  child: Container(
+                    width: 400,
+                    child: ListView.builder(
+                      //padding: EdgeInsets.all(8),
+                      itemCount: course.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          margin: EdgeInsets.all(20),
+                          height: 120,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: AssetImage(images[index]),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              right: 10,
-                              bottom: 10,
-                              child: Container(
-                                height: 20,
-                                width: 60,
-                                child: ElevatedButton(
-                                  style:ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 141, 34, 241),),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                right: 10,
+                                bottom: 10,
+                                child: Container(
+                                  height: 20,
+                                  width: 60,
+                                  child: ElevatedButton(
+                                    style:ButtonStyle(
+                                      backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 141, 34, 241),),
+                                    ),
+                                    onPressed: () {
+                                      print("Mengikuti "+course[index]);
+                                      Navigator.popAndPushNamed(context, "/dashboard");
+                                    }, 
+                                    child: Text("Ikuti")     
                                   ),
-                                  onPressed: () {
-                                    print("Mengikuti "+course[index]);
-                                    Navigator.popAndPushNamed(context, "/dashboard");
-                                  }, 
-                                  child: Text("Ikuti")     
                                 ),
                               ),
-                            ),
-                          ]
-                        ),
-                      );
-                    },
+                            ]
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),     
               ],
