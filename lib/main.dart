@@ -12,6 +12,7 @@ import 'package:belajar_pro/view/Profile.dart';
 
 void main() => runApp(
       MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: '/splashview',
         routes: {
           '/splashview': (context) => SplashView(),
