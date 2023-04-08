@@ -6,7 +6,8 @@ import 'package:belajar_pro/view/listCourse.dart';
 import 'package:belajar_pro/view/forum.dart';
 import 'package:belajar_pro/view/splash.view.dart';
 import 'package:belajar_pro/view/login.view.dart';
-import 'package:belajar_pro/view/burgermenu.dart';
+
+import 'package:belajar_pro/view/Profile.dart';
 
 void main() => runApp(
   MaterialApp(
@@ -17,7 +18,7 @@ void main() => runApp(
       '/forum': (context) => Forum(),
       '/listcourse': (context) => ListCourse(),
       '/login': (context) => LoginView(),
-      '/burgermenu': (context) => const BurgerMenu(),
+      '/profile': (context) => Profile(),
     },
   ),
 );

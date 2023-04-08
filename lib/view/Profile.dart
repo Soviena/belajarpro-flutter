@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 
 class Profile extends StatefulWidget{
   @override
@@ -9,26 +10,12 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context)  {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Color.fromARGB(255, 33, 139, 226),
-          ),
-          onPressed: () {},
-        ),
-        actions: [
-          IconButton(
-          icon: Icon(
-            Icons.settings,
-            color: Color.fromARGB(255, 33, 139, 226),
-          ),
-          onPressed: () {},
-        )
-        ],          
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
       ),
+      drawer: BurgerList(),
       body: Container(
         padding: EdgeInsets.only(
             top: MediaQuery.of(context).size.height * 0.2,
@@ -87,29 +74,38 @@ class _ProfileState extends State<Profile> {
           ]
         ),
       ),  
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.grey.shade800,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Color.fromARGB(255, 114, 171, 255),        
+        currentIndex: 2,
+        iconSize: 30,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.forum),
+            label: 'Forum',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          )
+        ],
+        onTap: (int index){
+          switch (index) {
+            case 0:
+              Navigator.pushNamed(context, "/forum");
+              break;
+            case 1:
+              Navigator.pushNamed(context, "/dashboard");
+              break;
+          }
+        },
+      ),            
     );
   }
 }
 
-// Stack (
-//     children: [
-//     container(),
-//     container(
-//         child: column(
-//         chuldren: [
-//             container(
-//                 child: column(
-//                     children: [
-//                         container(),
-//                         container(),
-//                         container(),
-//                     ]
-//                 )
-//             )
-//         ]
-//         )
-//     ),
-//     container(),
-//     ]
-
-// )
