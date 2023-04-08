@@ -29,7 +29,8 @@ class LoginView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.1),
+                margin: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.1),
                 alignment: Alignment.topCenter,
                 child: Text(
                   'Login',
@@ -41,12 +42,13 @@ class LoginView extends StatelessWidget {
                 ),
               ),
               TextFormGlobal(
-                controller: emailController,
-                text: 'email',
-                obscure: false,
-                textInputType: TextInputType.emailAddress,
-                margins: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1, bottom: 10)
-              ),
+                  controller: emailController,
+                  text: 'email',
+                  obscure: false,
+                  textInputType: TextInputType.emailAddress,
+                  margins: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.1,
+                      bottom: 10)),
               TextFormGlobal(
                 controller: passwordController,
                 text: 'password',
@@ -57,9 +59,10 @@ class LoginView extends StatelessWidget {
               Container(
                 child: ButtonGlobal(
                   text: "Login",
-                  margins: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
+                  margins: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.25),
                 ),
-                margin: EdgeInsets.symmetric(vertical: 25),
+                // margin: EdgeInsets.symmetric(vertical: 25),
               ),
               Container(child: SocialLogin()),
             ],
