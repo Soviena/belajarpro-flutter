@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:belajar_pro/view/landing.page.dart';
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/dashboard.dart';
