@@ -91,14 +91,11 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-=======
   flutter_web_plugins:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
->>>>>>> 72a134d9fd50ce9333c5eb9e9fb5644a19a4a641
   get:
     dependency: "direct main"
     description:
@@ -107,8 +104,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.5"
-<<<<<<< HEAD
-=======
   hexcolor:
     dependency: "direct main"
     description:
@@ -117,7 +112,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.7"
->>>>>>> 72a134d9fd50ce9333c5eb9e9fb5644a19a4a641
   js:
     dependency: transitive
     description:
