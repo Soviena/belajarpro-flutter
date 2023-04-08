@@ -25,12 +25,10 @@ class LoginView extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(15.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.1),
               alignment: Alignment.topCenter,
               child: Text(
                 'Login',
@@ -41,29 +39,39 @@ class LoginView extends StatelessWidget {
                 ),
               ),
             ),
-            TextFormGlobal(
-                controller: emailController,
-                text: 'email',
-                obscure: false,
-                textInputType: TextInputType.emailAddress,
-                margins: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.1, bottom: 10)),
-            TextFormGlobal(
-              controller: passwordController,
-              text: 'password',
-              textInputType: TextInputType.text,
-              obscure: true,
-              margins: EdgeInsets.symmetric(vertical: 10),
+            Container(
+              child: Column(                
+                children: [
+                  TextFormGlobal(
+                      controller: emailController,
+                      text: 'email',
+                      obscure: false,
+                      textInputType: TextInputType.emailAddress,
+                      margins: EdgeInsets.symmetric(vertical: 10),                                       
+                      ),                
+                  TextFormGlobal(
+                    controller: passwordController,
+                    text: 'password',
+                    textInputType: TextInputType.text,
+                    obscure: true,
+                    margins: EdgeInsets.symmetric(vertical: 10),            
+                  ),
+                ],
+              ),
             ),
             Container(
-              child: ButtonGlobal(
-                text: "Login",
-                margins: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.25),
+              child: Column(
+                children: [
+                  Container(
+                    child: ButtonGlobal(
+                      text: "Login",
+                      margins: EdgeInsets.zero
+                    ),
+                  ),
+                  Container(child: SocialLogin()),
+                ],
               ),
-              margin: EdgeInsets.symmetric(vertical: 25),
             ),
-            Container(child: SocialLogin()),
           ],
         ),
       ),
