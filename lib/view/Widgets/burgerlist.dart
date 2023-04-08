@@ -12,8 +12,8 @@ class BurgerList extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-              Color.fromARGB(100, 36, 0, 255),
               Color.fromARGB(100, 186, 49, 235),
+              Color.fromARGB(100, 36, 0, 255),
         ], begin: Alignment.topLeft, end: Alignment.bottomRight)),          
         child: Column(
           children: [
