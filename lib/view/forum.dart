@@ -1,3 +1,4 @@
+import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 
@@ -27,37 +28,10 @@ class _ForumState extends State<Forum> {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey.shade800,
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Color.fromARGB(255, 114, 171, 255),        
-        currentIndex: 0,
-        iconSize: 30,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.forum),
-            label: 'Forum',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          )
-        ],
-        onTap: (int index){
-          switch (index) {
-            case 1:
-              Navigator.pushNamed(context, "/dashboard");
-              break;
-            case 2:
-              Navigator.pushNamed(context, "/profile");
-              break;
-          }
-        },
-      ),      
+      bottomNavigationBar: BottomNavBar(
+        index: 0,
+        unselect: false,
+      ),
     );
   }
 }

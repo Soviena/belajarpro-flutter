@@ -1,3 +1,4 @@
+import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class _CoursePageState extends State<CoursePage> {
   Widget build(BuildContext context)  {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      extendBody: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
@@ -74,41 +76,10 @@ class _CoursePageState extends State<CoursePage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey.shade800,
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.white,
-        selectedFontSize: 12,
-        currentIndex: 0,
-        iconSize: 30,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.forum),
-            label: 'Forum',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          )
-        ],
-        onTap: (int index){
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, "/forum");
-              break;
-            case 1:
-              Navigator.pushNamed(context, "/dashboard");
-              break;              
-            case 2:
-              Navigator.pushNamed(context, "/profile");
-              break;
-          }
-        },
-      ),      
+      bottomNavigationBar: BottomNavBar(
+        index: 0,
+        unselect: true,
+      ),
     );
   }
 }
