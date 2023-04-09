@@ -1,12 +1,14 @@
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 import 'package:flutter/material.dart';
 
-class Template extends StatefulWidget{
+class CoursePage extends StatefulWidget{
   @override
-  _TemplateState createState() => _TemplateState();  
+  _CoursePageState createState() => _CoursePageState();  
 }
 
-class _TemplateState extends State<Template> {
+final List<String> kursus = ["Pengenalan", "Tipe data", "Indentasi", "Syntax"];
+
+class _CoursePageState extends State<CoursePage> {
   @override
   Widget build(BuildContext context)  {
     return Scaffold(
@@ -29,10 +31,11 @@ class _TemplateState extends State<Template> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(bottom: 20),
                   child: Container(
                     alignment: Alignment.centerLeft,                   
                     child: Text(
-                      "Selamat Pagi Username",
+                      "Daftar materi <nama kursus>",
                       style: TextStyle(
                         fontSize: 30.0,
                         color: Color.fromARGB(255, 255, 253, 253),
@@ -40,6 +43,32 @@ class _TemplateState extends State<Template> {
                     ),
                   ),
                 ),
+                Container(
+                  child: Expanded(
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: kursus.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: 5),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              child: Text((index+1).toString()),
+                            ),
+                            title: Text(kursus[index]),
+                            trailing: Icon(Icons.arrow_right,color: Colors.white,),
+                            textColor: Colors.white,
+                            onTap: () {
+                              print("Materi "+kursus[index]);
+                              Navigator.pushNamed(context, "/article");
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -48,7 +77,9 @@ class _TemplateState extends State<Template> {
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey.shade800,
         unselectedItemColor: Colors.white,
-        selectedItemColor: Color.fromARGB(255, 114, 171, 255),        
+        selectedItemColor: Colors.white,
+        selectedFontSize: 12,
+        currentIndex: 0,
         iconSize: 30,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
