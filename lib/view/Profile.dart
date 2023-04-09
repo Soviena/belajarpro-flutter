@@ -17,9 +17,20 @@ class _ProfileState extends State<Profile> {
       ),
       drawer: BurgerList(),
       body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 36, 0, 255),
+              Color.fromARGB(255, 186, 49, 235),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         padding: EdgeInsets.only(
             top: MediaQuery.of(context).size.height * 0.2,
         ),
+        
         child: Stack(
           children: [
           Positioned(
@@ -30,25 +41,57 @@ class _ProfileState extends State<Profile> {
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.15,
               ),
-              decoration: BoxDecoration(color: Colors.red),
               child: Column(
                 children: [
                   Container(
                     child: Column(
                       children: [
                         Container(
+                          padding: EdgeInsets.only(left: 16, top: 25, right: 16),
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Nama',
                               floatingLabelBehavior: FloatingLabelBehavior.always,
                             border: OutlineInputBorder(),
-                            hintText: 'Read Only',
+                            hintText: 'MiniWati',
                             )
                           )
                         ),
-                        Container(),
-                        Container(),
+                        Container(
+                          padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Level',
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(),
+                            hintText: 'Level 3',
+                            )
+                          )
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Tipe User',
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(),
+                            hintText: 'Pelajar',
+                            )
+                          )
+                        ),
+                        Container(        
+                          margin: EdgeInsets.fromLTRB(30, 20, 30, 20),
+                          height: 40,
+                          width: 250,
+                          child: Icon(Icons.add),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color.fromARGB(255, 255, 102, 97),
+                          ),
+                        ),
                       ],)
                   )
                 ],)
