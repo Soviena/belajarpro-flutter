@@ -81,7 +81,7 @@ class _DashboardState extends State<Dashboard> {
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/listcourse');
+                            Navigator.pushNamed(context, '/coursepage');
                           },
                           child: Container(
                             margin: EdgeInsets.all(20),
