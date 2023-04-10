@@ -53,8 +53,18 @@ class _ProfileState extends State<Profile> {
                             decoration: InputDecoration(
                               labelText: 'Nama',
                               floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              )                              
+                            ),
                             hintText: 'MiniWati',
+                            hintStyle: TextStyle(
+                              color: Colors.white,
+                            ),
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                            ),                            
                             )
                           )
                         ),
@@ -65,8 +75,18 @@ class _ProfileState extends State<Profile> {
                             decoration: InputDecoration(
                               labelText: 'Level',
                               floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              )                              
+                            ),
                             hintText: 'Level 3',
+                            hintStyle: TextStyle(
+                              color: Colors.white,
+                            ),
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                            ),
                             )
                           )
                         ),
@@ -76,10 +96,20 @@ class _ProfileState extends State<Profile> {
                           child: TextField(
                             decoration: InputDecoration(
                               labelText: 'Tipe User',
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(),
-                            hintText: 'Pelajar',
-                            )
+                              floatingLabelBehavior: FloatingLabelBehavior.always,                              
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              )
+                            ),
+                            hintText: 'Pelajar',                 
+                            hintStyle: TextStyle(
+                              color: Colors.white,
+                            ),
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                            ),
+                            ),
                           )
                         ),
                         Container(        
@@ -89,7 +119,7 @@ class _ProfileState extends State<Profile> {
                           child: Icon(Icons.add),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: Color.fromARGB(255, 255, 102, 97),
+                            color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
                       ],)
