@@ -1,3 +1,4 @@
+import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 
@@ -25,6 +26,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      extendBody: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
@@ -120,37 +122,10 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.grey.shade800,
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Color.fromARGB(255, 114, 171, 255),        
-        currentIndex: 1,
-        iconSize: 30,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.forum),
-            label: 'Forum',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          )
-        ],
-        onTap: (int index){
-          switch (index) {
-            case 0:
-              Navigator.pushNamed(context, "/forum");
-              break;
-            case 2:
-              Navigator.pushNamed(context, "/profile");
-              break;
-          }
-        },
-      ),      
+      bottomNavigationBar: BottomNavBar(
+        index: 1,
+        unselect: false,
+      ),
     );
   }
 }
