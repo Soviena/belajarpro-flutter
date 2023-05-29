@@ -52,19 +52,21 @@ class LandingPage extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.1),
+              margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.height * 0.1),
               child: Column(
                 children: [
-                  Container(              
+                  Container(
                     child: GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => RegisterView()),
+                          MaterialPageRoute(
+                              builder: (context) => RegisterView()),
                         );
                       },
                       child: Container(
-                        alignment: Alignment.center,                        
+                        alignment: Alignment.center,
                         height: 45,
                         width: MediaQuery.of(context).size.width * 0.4,
                         decoration: BoxDecoration(
@@ -85,10 +87,11 @@ class LandingPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),            
+                  ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 10),
-                    child: SocialRegister(),),
+                    child: SocialRegister(),
+                  ),
                   Container(
                     child: Text(
                       'Login nanti',
