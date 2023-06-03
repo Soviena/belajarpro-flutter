@@ -1,14 +1,29 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
+import 'package:http/http.dart' as http;
 
-class Profile extends StatefulWidget{
+class Profile extends StatefulWidget {
   @override
-  _ProfileState createState() => _ProfileState();  
+  _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
+  Future<List<dynamic>> fetchUsers() async {
+    final url = Uri.parse('http://your-api-url/users');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> users = json.decode(response.body);
+      return users;
+    } else {
+      throw Exception('Failed to fetch users');
+    }
+  }
+
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -28,91 +43,87 @@ class _ProfileState extends State<Profile> {
           ),
         ),
         padding: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.2,
+          top: MediaQuery.of(context).size.height * 0.2,
         ),
-        
-        child: Stack(
-          children: [
+        child: Stack(children: [
           Positioned(
             left: 0,
             right: 0,
             top: MediaQuery.of(context).size.height * 0.07,
             child: Container(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).size.height * 0.15,
-              ),
-              child: Column(
-                children: [
-                  Container(
-                    child: Column(
+                padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.15,
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                        child: Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: TextField(
-                            decoration: InputDecoration(
+                            padding:
+                                EdgeInsets.only(left: 16, top: 25, right: 16),
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: TextField(
+                                decoration: InputDecoration(
                               labelText: 'Nama',
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
                                 color: Colors.white,
-                              )                              
-                            ),
-                            hintText: 'MiniWati',
-                            hintStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            labelStyle: TextStyle(
-                              color: Colors.white,
-                            ),                            
-                            )
-                          )
-                        ),
+                              )),
+                              hintText: 'MiniWati',
+                              hintStyle: TextStyle(
+                                color: Colors.white,
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ))),
                         Container(
-                          padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: TextField(
-                            decoration: InputDecoration(
+                            padding:
+                                EdgeInsets.only(left: 16, top: 25, right: 16),
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: TextField(
+                                decoration: InputDecoration(
                               labelText: 'Level',
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.always,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
                                 color: Colors.white,
-                              )                              
-                            ),
-                            hintText: 'Level 3',
-                            hintStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            labelStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            )
-                          )
-                        ),
+                              )),
+                              hintText: 'Level 3',
+                              hintStyle: TextStyle(
+                                color: Colors.white,
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ))),
                         Container(
-                          padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Tipe User',
-                              floatingLabelBehavior: FloatingLabelBehavior.always,                              
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              )
-                            ),
-                            hintText: 'Pelajar',                 
-                            hintStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            labelStyle: TextStyle(
-                              color: Colors.white,
-                            ),
-                            ),
-                          )
-                        ),
-                        Container(        
+                            padding:
+                                EdgeInsets.only(left: 16, top: 25, right: 16),
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Tipe User',
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.always,
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.white,
+                                )),
+                                hintText: 'Pelajar',
+                                hintStyle: TextStyle(
+                                  color: Colors.white,
+                                ),
+                                labelStyle: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            )),
+                        Container(
                           margin: EdgeInsets.fromLTRB(30, 20, 30, 20),
                           height: 40,
                           width: 250,
@@ -122,35 +133,32 @@ class _ProfileState extends State<Profile> {
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
-                      ],)
-                  )
-                ],)
-            ),
+                      ],
+                    ))
+                  ],
+                )),
           ),
           Positioned(
             left: 0,
             right: 0,
             child: Center(
               child: Container(
-                width: 130,
-                height: 130,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage('https://picsum.photos/250?image=9')
-                  )
-                )
-              ),
+                  width: 130,
+                  height: 130,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              'https://picsum.photos/250?image=9')))),
             ),
           ),
-          ]
-        ),
-      ),  
+        ]),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.grey.shade800,
         unselectedItemColor: Colors.white,
-        selectedItemColor: Color.fromARGB(255, 114, 171, 255),        
+        selectedItemColor: Color.fromARGB(255, 114, 171, 255),
         currentIndex: 2,
         iconSize: 30,
         items: const <BottomNavigationBarItem>[
@@ -167,7 +175,7 @@ class _ProfileState extends State<Profile> {
             label: 'Profile',
           )
         ],
-        onTap: (int index){
+        onTap: (int index) {
           switch (index) {
             case 0:
               Navigator.pushNamed(context, "/forum");
@@ -177,8 +185,7 @@ class _ProfileState extends State<Profile> {
               break;
           }
         },
-      ),            
+      ),
     );
   }
 }
-
