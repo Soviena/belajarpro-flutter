@@ -11,12 +11,10 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List data = [];
-  var api = "http://10.0.2.2:8000";
+  var api = "http://belajarpro.online";
 
   Future<List> getData() async {
-
-    var response =
-        await http.get(Uri.parse(api+"/api/course/all"));
+    var response = await http.get(Uri.parse(api + "/api/course/all"));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -97,27 +95,31 @@ class _DashboardState extends State<Dashboard> {
                           child: Column(
                             children: [
                               Container(
-                                margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+                                margin: EdgeInsets.only(
+                                    top: 20, left: 20, right: 20),
                                 height: 80,
                                 width: 250,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(40),
+                                      topRight: Radius.circular(40)),
                                   image: DecorationImage(
-                                    image: NetworkImage('${api}/storage/uploaded/Course/${data[index]['img']}.jpg'),
+                                    image: NetworkImage(
+                                        '${api}/storage/uploaded/Course/${data[index]['img']}'),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
                               Container(
-                              height: 50,
-                              width: 250,
-                              child: Text(data[index]['name']),
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 226, 230, 233),
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(40),
-                                      bottomRight: Radius.circular(40))),
-                            ),
+                                height: 50,
+                                width: 250,
+                                child: Text(data[index]['name']),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 226, 230, 233),
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(40),
+                                        bottomRight: Radius.circular(40))),
+                              ),
                             ],
                           ),
                         );
