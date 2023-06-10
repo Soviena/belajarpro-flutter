@@ -1,10 +1,17 @@
+import 'dart:convert';
+
 import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
-
+import 'package:http/http.dart' as http;
 
 final List<String> entries = <String>[
-  'Python', 'HTML', 'C++','Python', 'HTML', 'C++',
+  'Python',
+  'HTML',
+  'C++',
+  'Python',
+  'HTML',
+  'C++',
 ];
 
 final List<String> images = <String>[
@@ -22,6 +29,30 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  List data = [];
+
+  Future<List> getData() async {
+    var response =
+        await http.get(Uri.parse('http://10.0.2.2:8000/api/course/all'));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        data = jsonDecode(response.body);
+      });
+      print(data);
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Fetch Error');
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,18 +66,18 @@ class _DashboardState extends State<Dashboard> {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-              Color.fromARGB(255, 186, 49, 235),
-              Color.fromARGB(255, 36, 0, 255),
+          Color.fromARGB(255, 186, 49, 235),
+          Color.fromARGB(255, 36, 0, 255),
         ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
         child: SafeArea(
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),       
+            margin: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
                   child: Container(
-                    alignment: Alignment.centerLeft,                   
+                    alignment: Alignment.centerLeft,
                     child: Text(
                       "Selamat Pagi Username",
                       style: TextStyle(
@@ -62,15 +93,10 @@ class _DashboardState extends State<Dashboard> {
                     alignment: Alignment.centerLeft,
                     margin: EdgeInsets.only(top: 10),
                     decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(width: 1)
-                      )
-                    ),
+                        border: Border(bottom: BorderSide(width: 1))),
                     child: Text(
                       "Daftar Kursus",
-                      style: TextStyle(
-                        color: Colors.white
-                      ),                      
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
@@ -79,23 +105,41 @@ class _DashboardState extends State<Dashboard> {
                     width: 350,
                     child: ListView.builder(
                       //padding: EdgeInsets.all(8),
-                      itemCount: entries.length,
+                      itemCount: data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, '/coursepage');
                           },
-                          child: Container(
-                            margin: EdgeInsets.all(20),
-                            height: 80,
-                            width: 250,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              image: DecorationImage(
-                                image: AssetImage(images[index]),
-                                fit: BoxFit.cover,
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: 20, left: 20, right: 20),
+                                height: 80,
+                                width: 250,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(40),
+                                      topRight: Radius.circular(40)),
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        'http://127.0.0.1:8000/storage/uploaded/Course/${data[index]['img']}.jpg'),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
-                            ),
+                              Container(
+                                height: 50,
+                                width: 250,
+                                child: Text(data[index]['name']),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 226, 230, 233),
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(40),
+                                        bottomRight: Radius.circular(40))),
+                              ),
+                            ],
                           ),
                         );
                       },
@@ -106,7 +150,7 @@ class _DashboardState extends State<Dashboard> {
                   onTap: () {
                     Navigator.pushNamed(context, '/listcourse');
                   },
-                  child: Container(        
+                  child: Container(
                     margin: EdgeInsets.fromLTRB(30, 20, 30, 20),
                     height: 40,
                     width: 250,
