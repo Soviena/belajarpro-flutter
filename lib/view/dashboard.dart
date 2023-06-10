@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
@@ -30,10 +29,10 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List data = [];
+  var api = "http://belajarpro.online";
 
   Future<List> getData() async {
-    var response =
-        await http.get(Uri.parse('http://10.0.2.2:8000/api/course/all'));
+    var response = await http.get(Uri.parse(api + "/api/course/all"));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -124,7 +123,7 @@ class _DashboardState extends State<Dashboard> {
                                       topRight: Radius.circular(40)),
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                        'http://127.0.0.1:8000/storage/uploaded/Course/${data[index]['img']}.jpg'),
+                                        '${api}/storage/uploaded/Course/${data[index]['img']}'),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
