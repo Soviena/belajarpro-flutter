@@ -3,6 +3,7 @@ import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 import 'package:http/http.dart' as http;
+import 'package:belajar_pro/dbHelper.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -14,6 +15,9 @@ class _DashboardState extends State<Dashboard> {
   var api = "http://belajarpro.online";
 
   Future<List> getData() async {
+    Map<String, dynamic>? sessionData =
+        await DatabaseHelper.instance.getAllSessionData();
+    print("isi sesion ${sessionData}");
     var response = await http.get(Uri.parse(api + "/api/course/all"));
 
     if (response.statusCode == 200) {
@@ -27,10 +31,13 @@ class _DashboardState extends State<Dashboard> {
     }
   }
 
+  Future<Map<String, dynamic>?>? _sessionData;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _sessionData = DatabaseHelper.instance.getAllSessionData();
+    print(_sessionData);
     getData();
   }
 
