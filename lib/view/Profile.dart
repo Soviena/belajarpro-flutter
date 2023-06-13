@@ -8,6 +8,18 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String nama = "noName";
+  String profilePic = "https://placeimg.com/50/50/any";
+
+  Future<void> getDb() async {
+    dynamic data = await DatabaseHelper.instance.getSession();
+    setState(() {
+      nama = data['name'];
+      profilePic = "http://belajarpro.online/storage/uploaded/profile/" +
+          data['profilePic'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +70,7 @@ class _ProfileState extends State<Profile> {
                                   borderSide: BorderSide(
                                 color: Colors.white,
                               )),
-                              hintText: 'MiniWati',
+                              hintText: nama,
                               hintStyle: TextStyle(
                                 color: Colors.white,
                               ),
@@ -135,8 +147,7 @@ class _ProfileState extends State<Profile> {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(
-                        'http://192.168.79.65:8000/storage/uploaded/Course/nWdTHdW2mQ2zumEg8fVMtZAeXTXZGazx915vVXuG.jpg'),
+                    image: NetworkImage(profilePic),
                   ),
                 ),
               ),

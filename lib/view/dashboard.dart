@@ -1,27 +1,10 @@
 import 'dart:convert';
 import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
+import 'package:belajar_pro/view/coursepage.dart';
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 import 'package:http/http.dart' as http;
 import 'package:belajar_pro/dbHelper.dart';
-
-final List<String> entries = <String>[
-  'Python',
-  'HTML',
-  'C++',
-  'Python',
-  'HTML',
-  'C++',
-];
-
-final List<String> images = <String>[
-  'assets/images/python.jpg',
-  'assets/images/html.png',
-  'assets/images/cpp.jpg',
-  'assets/images/python.jpg',
-  'assets/images/html.png',
-  'assets/images/cpp.jpg',
-];
 
 class Dashboard extends StatefulWidget {
   @override
@@ -115,7 +98,12 @@ class _DashboardState extends State<Dashboard> {
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/coursepage');
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    CoursePage(courseId: data[index]['id']),
+                              ),
+                            );
                           },
                           child: Column(
                             children: [
