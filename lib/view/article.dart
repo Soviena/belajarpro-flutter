@@ -1,15 +1,80 @@
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:markdown/markdown.dart' as md;
+import 'dart:convert';
 
-class Article extends StatefulWidget{
+class Article extends StatefulWidget {
+  const Article({Key? key, required this.deskripsi}) : super(key: key);
+  final String deskripsi;
   @override
-  _ArticleState createState() => _ArticleState();  
+  _ArticleState createState() => _ArticleState();
 }
 
 class _ArticleState extends State<Article> {
+  String style = '''
+
+    <style>
+        code {
+            display: block;
+            padding: 9.5px;
+            margin: 0 0 10px;
+            font-size: 13px;
+            line-height: 1.42857143;
+            color: #aaffaa;
+            word-break: break-all;
+            word-wrap: break-word;
+            background-color: #555555;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 16px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        .tab-content {
+            padding-top: 10px;
+            margin-left:30px;
+            max-width: 1200px;
+            background-color:rgb(255, 241, 241) ;
+            border-radius: 10px
+        }
+    </style>
+  ''';
+  String htmlContent = "none";
+  void decodeMD() {
+    List<int> bytes = base64.decode(widget.deskripsi);
+    setState(() {
+      htmlContent = (md.markdownToHtml(utf8.decode(bytes))) + style;
+    });
+  }
+
   @override
-  Widget build(BuildContext context)  {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    decodeMD();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
@@ -20,16 +85,16 @@ class _ArticleState extends State<Article> {
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
-              Color.fromARGB(255, 107, 29, 136),
-              Color.fromARGB(255, 27, 14, 110),
+          Color.fromARGB(255, 107, 29, 136),
+          Color.fromARGB(255, 27, 14, 110),
         ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
         child: SafeArea(
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),       
+            margin: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
                 Container(
-                  alignment: Alignment.centerLeft,                   
+                  alignment: Alignment.centerLeft,
                   margin: EdgeInsets.only(bottom: 20),
                   child: Text(
                     "Halaman Artikel",
@@ -39,81 +104,42 @@ class _ArticleState extends State<Article> {
                     ),
                   ),
                 ),
-                Container(                  
-                  child: Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(20),               
-                                child: Text("""Python adalah bahasa pemrograman tingkat tinggi. Python menggunakan dynamic typing dan garbage collector...\nSintax untuk mengoutputkan teks kelayar menggunakan fungsi print().""",
-                                  style: TextStyle(
-                                    color: Colors.white,
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.68,
+                        child: Expanded(
+                          child: SingleChildScrollView(
+                            child: Container(
+                              child: Html(
+                                data: htmlContent,
+                                style: {
+                                  "body": Style(
+                                    color: Colors
+                                        .white, // Change the text color here
                                   ),
-                                ),
+                                },
                               ),
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Input",style: TextStyle(color: Colors.white),),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      padding: EdgeInsets.all(16.0),
-                                      color: Color.fromARGB(255, 20, 20, 20),
-                                      child: SingleChildScrollView(
-                                        child: Text(
-                                          'print("Hello World")',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Monospace',
-                                            fontSize: 12.0,
-                                            letterSpacing: 0.5,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Text("Input",style: TextStyle(color: Colors.white),),
-                                    Container(
-                                      alignment: Alignment.centerLeft,
-                                      padding: EdgeInsets.all(16.0),
-                                      color: Color.fromARGB(255, 20, 20, 20),
-                                      child: SingleChildScrollView(
-                                        child: Text(
-                                          'Hello World',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'Monospace',
-                                            fontSize: 12.0,
-                                            letterSpacing: 0.5,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.bottomRight,
-                          margin: EdgeInsets.only(bottom: 30, right: 30),
-                          child: ElevatedButton(                            
-                            style:ButtonStyle(                              
-                            backgroundColor: MaterialStatePropertyAll(Color.fromARGB(255, 141, 34, 241))),
-                            child: Text("Selesai"),
-                            onPressed: () {
-                              Navigator.popAndPushNamed(context, "/coursepage");
-                            }, 
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        margin: EdgeInsets.only(bottom: 30, right: 30),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                  Color.fromARGB(255, 141, 34, 241))),
+                          child: Text("Selesai"),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ],

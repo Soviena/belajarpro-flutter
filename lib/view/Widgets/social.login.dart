@@ -12,10 +12,7 @@ class SocialLogin extends StatelessWidget {
       children: [
         Text(
           'Belum punya akun?',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white60
-          ),
+          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white60),
         ),
         const SizedBox(width: 5),
         GestureDetector(
@@ -29,7 +26,7 @@ class SocialLogin extends StatelessWidget {
             'Daftar',
             style: TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.bold,              
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

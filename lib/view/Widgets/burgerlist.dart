@@ -1,11 +1,40 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:belajar_pro/dbHelper.dart';
 
-class BurgerList extends StatelessWidget {
+class BurgerList extends StatefulWidget {
   const BurgerList({Key? key}) : super(key: key);
+
   @override
+  State<BurgerList> createState() => _BurgerListState();
+}
+
+class _BurgerListState extends State<BurgerList> {
+  String nama = "noName";
+  String profilePic = "https://placeimg.com/50/50/any";
+
+  @override
+  Future<void> logOut() async {
+    DatabaseHelper.instance.deleteSession();
+  }
+
+  Future<void> getDb() async {
+    dynamic data = await DatabaseHelper.instance.getSession();
+    setState(() {
+      nama = data['name'];
+      profilePic = "http://belajarpro.online/storage/uploaded/profile/" +
+          data['profilePic'];
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDb();
+  }
+
   Widget build(BuildContext context) {
     return Drawer(
       width: MediaQuery.of(context).size.width,
@@ -37,11 +66,16 @@ class BurgerList extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   child: Row(children: [
                     Container(
-                        child: const Icon(
-                      Icons.circle,
-                      color: Colors.blue,
-                      size: 50,
-                    )),
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(profilePic),
+                        ),
+                      ),
+                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushReplacementNamed(context, "/dashboard");
@@ -50,13 +84,13 @@ class BurgerList extends StatelessWidget {
                         margin: const EdgeInsets.only(left: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             Text(
-                              "Super namapengguna",
+                              nama,
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20),
                             ),
-                            Text("Level 3",
+                            Text("Level 1",
                                 style: TextStyle(color: Colors.white))
                           ],
                         ),
@@ -123,6 +157,7 @@ class BurgerList extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                logOut();
                 Navigator.pushReplacementNamed(context, "/splashview");
               },
               child: Container(

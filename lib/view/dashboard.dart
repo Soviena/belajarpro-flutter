@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
+import 'package:belajar_pro/view/coursepage.dart';
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 import 'package:http/http.dart' as http;
@@ -12,33 +13,33 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List data = [];
+  String name = "username";
   var api = "http://belajarpro.online";
 
-  Future<List> getData() async {
-    Map<String, dynamic>? sessionData =
-        await DatabaseHelper.instance.getAllSessionData();
-    print("isi sesion ${sessionData}");
+  Future<void> getData() async {
     var response = await http.get(Uri.parse(api + "/api/course/all"));
 
     if (response.statusCode == 200) {
       setState(() {
         data = jsonDecode(response.body);
       });
-      print(data);
-      return jsonDecode(response.body);
+      return;
     } else {
       throw Exception('Fetch Error');
     }
   }
 
-  Future<Map<String, dynamic>?>? _sessionData;
+  Future<void> getDb() async {
+    dynamic data = await DatabaseHelper.instance.getSession();
+    name = data['name'];
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _sessionData = DatabaseHelper.instance.getAllSessionData();
-    print(_sessionData);
     getData();
+    getDb();
   }
 
   @override
@@ -67,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
                   child: Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Selamat Pagi Username",
+                      "Selamat Pagi " + name,
                       style: TextStyle(
                         fontSize: 30.0,
                         color: Color.fromARGB(255, 255, 253, 253),
@@ -97,7 +98,12 @@ class _DashboardState extends State<Dashboard> {
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, '/coursepage');
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    CoursePage(courseId: data[index]['id']),
+                              ),
+                            );
                           },
                           child: Column(
                             children: [

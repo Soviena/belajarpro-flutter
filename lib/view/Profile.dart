@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
-import 'package:http/http.dart' as http;
+import 'package:belajar_pro/dbHelper.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -10,16 +10,16 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  Future<List<dynamic>> fetchUsers() async {
-    final url = Uri.parse('http://your-api-url/users');
-    final response = await http.get(url);
+  String nama = "noName";
+  String profilePic = "https://placeimg.com/50/50/any";
 
-    if (response.statusCode == 200) {
-      final List<dynamic> users = json.decode(response.body);
-      return users;
-    } else {
-      throw Exception('Failed to fetch users');
-    }
+  Future<void> getDb() async {
+    dynamic data = await DatabaseHelper.instance.getSession();
+    setState(() {
+      nama = data['name'];
+      profilePic = "http://belajarpro.online/storage/uploaded/profile/" +
+          data['profilePic'];
+    });
   }
 
   @override
@@ -72,7 +72,7 @@ class _ProfileState extends State<Profile> {
                                   borderSide: BorderSide(
                                 color: Colors.white,
                               )),
-                              hintText: 'MiniWati',
+                              hintText: nama,
                               hintStyle: TextStyle(
                                 color: Colors.white,
                               ),
@@ -143,14 +143,16 @@ class _ProfileState extends State<Profile> {
             right: 0,
             child: Center(
               child: Container(
-                  width: 130,
-                  height: 130,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                              'https://picsum.photos/250?image=9')))),
+                width: 130,
+                height: 130,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(profilePic),
+                  ),
+                ),
+              ),
             ),
           ),
         ]),

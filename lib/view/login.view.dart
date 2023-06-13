@@ -26,22 +26,18 @@ class _LoginViewState extends State<LoginView> {
           await http.post(Uri.parse(url), headers: headers, body: jsonBody);
 
       if (response.statusCode == 200) {
-        try {
-          // Request successful
-          Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-          if (jsonResponse.containsKey('loggedin')) {
-            String email = jsonResponse['email'] ?? '';
-            int uid = int.tryParse(jsonResponse['uid'].toString()) ?? 0;
-            String admin = jsonResponse['admin'] ?? '';
-            String profilePic = jsonResponse['profilePic'] ?? '';
-            
-            DatabaseHelper.instance.saveSession(email, uid, admin, profilePic);
-            Navigator.pushReplacementNamed(context, '/dashboard');
-          } else {
-            print("failed");
-          }
-        } catch (e) {
-          print('JSON decoding error: $e');
+        // Request successful
+        Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        if (jsonResponse.containsKey('loggedin')) {
+          DatabaseHelper.instance.saveSession(
+              jsonResponse['email'],
+              int.parse(jsonResponse['uid']),
+              jsonResponse['admin'],
+              jsonResponse['profilePic'],
+              jsonResponse['name']);
+          Navigator.pushReplacementNamed(context, '/dashboard');
+        } else {
+          print("failed");
         }
       } else {
         print('Request failed with status code: ${response.statusCode}');
