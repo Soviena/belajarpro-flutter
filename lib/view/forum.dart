@@ -1,7 +1,6 @@
-import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
-import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Forum extends StatefulWidget {
   @override
@@ -26,6 +25,46 @@ class _ForumState extends State<Forum> {
     UserQuestion(user: "User 1", question: "Kenapa python ...?", answers: []),
     UserQuestion(user: "User 2", question: "Kenapa java ...?", answers: []),
   ];
+
+  List data = [];
+  var api = "http://belajarpro.online";
+
+  Future<void> getData() async {
+    var response = await http.get(Uri.parse(api + "/api/komunitas"));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        data = jsonDecode(response.body);
+        print(data);
+      });
+      return;
+    } else {
+      throw Exception('Fetch Error');
+    }
+  }
+
+  Widget profilePic(dynamic pic, double size) {
+    if (pic == null) {
+      return Icon(
+        Icons.account_circle,
+        size: size,
+        color: Colors.grey,
+      );
+    } else {
+      return Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage(
+                "http://belajarpro.online/storage/uploaded/profile/" + pic),
+          ),
+        ),
+      );
+    }
+  }
 
   void _showPostDialog() {
     showDialog(
@@ -119,6 +158,13 @@ class _ForumState extends State<Forum> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -162,7 +208,7 @@ class _ForumState extends State<Forum> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: usersQuestion.length,
+                    itemCount: data.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                         margin: EdgeInsets.all(20),
@@ -184,20 +230,20 @@ class _ForumState extends State<Forum> {
                           children: [
                             Row(
                               children: [
-                                Icon(
-                                  Icons.account_circle,
-                                  size: 20,
-                                  color: Colors.grey,
-                                ),
-                                SizedBox(width: 10),
-                                Text(
-                                  usersQuestion[index].user,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                profilePic(
+                                    data[index]['members']['profilePic'], 20),
+                                Text(data[index]['members']['name']),
                               ],
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                data[index]['title'],
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                             SizedBox(height: 10),
                             Container(
@@ -206,7 +252,7 @@ class _ForumState extends State<Forum> {
                             ),
                             SizedBox(height: 10),
                             Text(
-                              usersQuestion[index].question,
+                              data[index]['deskripsi'],
                             ),
                             SizedBox(height: 10),
                             Text(
@@ -219,19 +265,16 @@ class _ForumState extends State<Forum> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                for (String answer
-                                    in usersQuestion[index].answers)
+                                for (dynamic answer in data[index]['comments'])
                                   Column(
                                     children: [
                                       Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Icon(
-                                            Icons.account_circle,
-                                            size: 16,
-                                            color: Colors.grey,
-                                          ),
+                                          profilePic(
+                                              answer['members']['profilePic'],
+                                              16),
                                           SizedBox(width: 10),
                                           Expanded(
                                             child: Column(
@@ -239,14 +282,14 @@ class _ForumState extends State<Forum> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  usersQuestion[index].user,
+                                                  answer['members']['name'],
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                                 Divider(),
-                                                Text(answer),
+                                                Text(answer['comment']),
                                               ],
                                             ),
                                           ),

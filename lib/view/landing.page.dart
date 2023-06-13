@@ -92,12 +92,12 @@ class LandingPage extends StatelessWidget {
                     margin: EdgeInsets.symmetric(vertical: 10),
                     child: SocialRegister(),
                   ),
-                  Container(
-                    child: Text(
-                      'Login nanti',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                  )
+                  // Container(
+                  //   child: Text(
+                  //     'Login nanti',
+                  //     style: TextStyle(color: Colors.white, fontSize: 14),
+                  //   ),
+                  // )
                 ],
               ),
             ),

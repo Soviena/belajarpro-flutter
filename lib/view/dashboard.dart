@@ -140,21 +140,21 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/listcourse');
-                  },
-                  child: Container(
-                    margin: EdgeInsets.fromLTRB(30, 20, 30, 20),
-                    height: 40,
-                    width: 250,
-                    child: Icon(Icons.add),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Color.fromARGB(255, 255, 255, 255),
-                    ),
-                  ),
-                )
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.pushNamed(context, '/listcourse');
+                //   },
+                //   child: Container(
+                //     margin: EdgeInsets.fromLTRB(30, 20, 30, 20),
+                //     height: 40,
+                //     width: 250,
+                //     child: Icon(Icons.add),
+                //     decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(20),
+                //       color: Color.fromARGB(255, 255, 255, 255),
+                //     ),
+                //   ),
+                // )
               ],
             ),
           ),
