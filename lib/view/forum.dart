@@ -169,14 +169,6 @@ class _ForumState extends State<Forum> {
             TextButton(
               child: Text('Jawab'),
               onPressed: () async {
-                // String answer = answerController.text;
-                // if (answer.isNotEmpty) {
-                //   setState(() {
-                //     usersQuestion[index].answers.add(answer);
-                //   });
-                //   answerController.clear();
-                //   Navigator.of(context).pop();
-                // }
                 var url = Uri.parse(
                     api + '/api/comment/add'); // Replace with your API endpoint
                 var headers = {

@@ -31,15 +31,17 @@ class _DashboardState extends State<Dashboard> {
 
   Future<void> getDb() async {
     dynamic data = await DatabaseHelper.instance.getSession();
-    name = data['name'];
+    setState(() {
+      name = data['name'];
+    });
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     getData();
     getDb();
+    super.initState();
   }
 
   @override
