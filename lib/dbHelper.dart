@@ -25,8 +25,9 @@ class DatabaseHelper {
             id INTEGER PRIMARY KEY,
             email TEXT,
             uid INTEGER,
-            loggedin TEXT
-            admin TEXT
+            loggedin TEXT,
+            admin TEXT,
+            name TEXT,
             profilePic TEXT
           )
         ''');
@@ -34,25 +35,39 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> saveSession(
-    String email,
-    int uid,
-    String admin,
-    String profilePic,
-  ) async {
+  Future<void> saveSession(String email, int uid, String admin,
+      String profilePic, String name) async {
     final db = await instance.database;
     await db.insert('sessions', {
       'email': email,
       'uid': uid,
       'loggedin': true,
       'admin': (admin.toLowerCase() == 'true'),
-      'porfilePic': profilePic
+      'name': name,
+      'profilePic': profilePic
     });
   }
 
-  Future<Map<String, dynamic>?> getAllSessionData() async {
+  Future<bool> getLogin() async {
     final db = await instance.database;
     List<Map<String, dynamic>> result = await db.query('sessions', limit: 1);
-    return result.isNotEmpty ? result.first : null;
+    if (result.isNotEmpty) {
+      return result.first['loggedin'] == '1';
+    }
+    return false;
+  }
+
+  Future<void> deleteSession() async {
+    final db = await instance.database;
+    await db.delete('sessions');
+  }
+
+  Future<dynamic> getSession() async {
+    final db = await instance.database;
+    List<Map<String, dynamic>> result = await db.query('sessions', limit: 1);
+    if (result.isNotEmpty) {
+      return result.first;
+    }
+    return null;
   }
 }

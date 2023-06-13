@@ -33,7 +33,8 @@ class _LoginViewState extends State<LoginView> {
               jsonResponse['email'],
               int.parse(jsonResponse['uid']),
               jsonResponse['admin'],
-              jsonResponse['profilePic']);
+              jsonResponse['profilePic'],
+              jsonResponse['name']);
           Navigator.pushReplacementNamed(context, '/dashboard');
         } else {
           print("failed");

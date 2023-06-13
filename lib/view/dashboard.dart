@@ -3,6 +3,7 @@ import 'package:belajar_pro/view/Widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:belajar_pro/view/Widgets/burgerlist.dart';
 import 'package:http/http.dart' as http;
+import 'package:belajar_pro/dbHelper.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -11,20 +12,25 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   List data = [];
+  String name = "username";
   var api = "http://belajarpro.online";
 
-  Future<List> getData() async {
+  Future<void> getData() async {
     var response = await http.get(Uri.parse(api + "/api/course/all"));
 
     if (response.statusCode == 200) {
       setState(() {
         data = jsonDecode(response.body);
       });
-      print(data);
-      return jsonDecode(response.body);
+      return;
     } else {
       throw Exception('Fetch Error');
     }
+  }
+
+  Future<void> getDb() async {
+    dynamic data = await DatabaseHelper.instance.getSession();
+    name = data['name'];
   }
 
   @override
@@ -32,6 +38,7 @@ class _DashboardState extends State<Dashboard> {
     // TODO: implement initState
     super.initState();
     getData();
+    getDb();
   }
 
   @override
@@ -60,7 +67,7 @@ class _DashboardState extends State<Dashboard> {
                   child: Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Selamat Pagi Username",
+                      "Selamat Pagi " + name,
                       style: TextStyle(
                         fontSize: 30.0,
                         color: Color.fromARGB(255, 255, 253, 253),
