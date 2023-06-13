@@ -34,7 +34,8 @@ class _CoursePageState extends State<CoursePage> {
 
     if (responseCourse.statusCode == 200) {
       setState(() {
-        course = jsonDecode(responseCourse.body)[0]["name"];
+        print(responseCourse.body);
+        course = jsonDecode(responseCourse.body)["name"];
       });
     } else {
       throw Exception('Fetch Error');
