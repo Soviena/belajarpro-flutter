@@ -1,33 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:belajar_pro/dbHelper.dart';
 
 class Forum extends StatefulWidget {
   @override
   _ForumState createState() => _ForumState();
 }
 
-class UserQuestion {
-  String user;
-  String question;
-  List<String> answers;
-
-  UserQuestion(
-      {required this.user, required this.question, required this.answers});
-}
-
 class _ForumState extends State<Forum> {
-  bool showBorder = false;
   TextEditingController questionController = TextEditingController();
-  TextEditingController answerController = TextEditingController();
+  TextEditingController descController = TextEditingController();
+  TextEditingController tagsController = TextEditingController();
 
-  List<UserQuestion> usersQuestion = [
-    UserQuestion(user: "User 1", question: "Kenapa python ...?", answers: []),
-    UserQuestion(user: "User 2", question: "Kenapa java ...?", answers: []),
-  ];
+  TextEditingController answerController = TextEditingController();
 
   List data = [];
   var api = "http://belajarpro.online";
+  var uid = 0;
 
   Future<void> getData() async {
     var response = await http.get(Uri.parse(api + "/api/komunitas"));
@@ -35,12 +26,18 @@ class _ForumState extends State<Forum> {
     if (response.statusCode == 200) {
       setState(() {
         data = jsonDecode(response.body);
-        print(data);
       });
       return;
     } else {
       throw Exception('Fetch Error');
     }
+  }
+
+  Future<void> getuid() async {
+    dynamic data = await DatabaseHelper.instance.getSession();
+    setState(() {
+      uid = data['uid'];
+    });
   }
 
   Widget profilePic(dynamic pic, double size) {
@@ -82,6 +79,20 @@ class _ForumState extends State<Forum> {
                   hintText: 'Pertanyaan',
                 ),
               ),
+              Text('Deskripsikan pertanyaan nya:'),
+              TextFormField(
+                controller: descController,
+                decoration: InputDecoration(
+                  hintText: 'Deskripsi',
+                ),
+              ),
+              Text('Tags:'),
+              TextFormField(
+                controller: tagsController,
+                decoration: InputDecoration(
+                  hintText: 'tags',
+                ),
+              ),
             ],
           ),
           actions: [
@@ -93,17 +104,34 @@ class _ForumState extends State<Forum> {
             ),
             TextButton(
               child: Text('Post'),
-              onPressed: () {
-                String user = 'User';
-                String question = questionController.text;
-                if (question.isNotEmpty) {
-                  setState(() {
-                    usersQuestion.add(UserQuestion(
-                        user: user, question: question, answers: []));
-                    showBorder = false;
-                  });
-                  questionController.clear();
+              onPressed: () async {
+                var url = Uri.parse(
+                    api + '/api/post/add'); // Replace with your API endpoint
+                var headers = {
+                  'Content-Type': 'application/json'
+                }; // Replace with the appropriate headers
+
+                var data = {
+                  'uid': uid,
+                  'title': questionController.text,
+                  'desc': descController.text,
+                  'tags': tagsController.text
+                }; // Replace with your data
+
+                var response = await http.post(
+                  url,
+                  headers: headers,
+                  body: jsonEncode(data),
+                );
+
+                if (response.statusCode == 200) {
+                  // Successful request
+                  print(response.body);
+                  getData();
                   Navigator.of(context).pop();
+                } else {
+                  // Error occurred
+                  print('Request failed with status: ${response.statusCode}');
                 }
               },
             ),
@@ -140,14 +168,41 @@ class _ForumState extends State<Forum> {
             ),
             TextButton(
               child: Text('Jawab'),
-              onPressed: () {
-                String answer = answerController.text;
-                if (answer.isNotEmpty) {
-                  setState(() {
-                    usersQuestion[index].answers.add(answer);
-                  });
-                  answerController.clear();
+              onPressed: () async {
+                // String answer = answerController.text;
+                // if (answer.isNotEmpty) {
+                //   setState(() {
+                //     usersQuestion[index].answers.add(answer);
+                //   });
+                //   answerController.clear();
+                //   Navigator.of(context).pop();
+                // }
+                var url = Uri.parse(
+                    api + '/api/comment/add'); // Replace with your API endpoint
+                var headers = {
+                  'Content-Type': 'application/json'
+                }; // Replace with the appropriate headers
+
+                var data = {
+                  'pid': index,
+                  'uid': uid,
+                  'comment': answerController.text
+                }; // Replace with your data
+
+                var response = await http.post(
+                  url,
+                  headers: headers,
+                  body: jsonEncode(data),
+                );
+
+                if (response.statusCode == 200) {
+                  // Successful request
+                  print(response.body);
+                  getData();
                   Navigator.of(context).pop();
+                } else {
+                  // Error occurred
+                  print('Request failed with status: ${response.statusCode}');
                 }
               },
             ),
@@ -160,8 +215,9 @@ class _ForumState extends State<Forum> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     getData();
+    getuid();
+    super.initState();
   }
 
   @override
@@ -303,7 +359,7 @@ class _ForumState extends State<Forum> {
                             Center(
                               child: ElevatedButton(
                                 onPressed: () {
-                                  _showAnswerDialog(index);
+                                  _showAnswerDialog(data[index]['id']);
                                 },
                                 child: Text('Jawab'),
                               ),
