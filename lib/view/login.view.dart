@@ -40,13 +40,11 @@ class _LoginViewState extends State<LoginView> {
           print("failed");
         }
       } else {
-        // Request failed
-        print('Request failed with status: ${response.statusCode}');
+        print('Request failed with status code: ${response.statusCode}');
       }
     } catch (error) {
       print('Error: $error');
     }
-
     return; // Return an empty map as the default response
   }
 
