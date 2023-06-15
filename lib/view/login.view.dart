@@ -20,6 +20,7 @@ class _LoginViewState extends State<LoginView> {
     String url = 'http://belajarpro.online/api/login';
     Map<String, String> headers = {'Content-Type': 'application/json'};
     String jsonBody = '{"email": "$email", "password": "$password"}';
+    print(jsonBody);
 
     try {
       http.Response response =
@@ -28,6 +29,7 @@ class _LoginViewState extends State<LoginView> {
       if (response.statusCode == 200) {
         // Request successful
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        print(jsonResponse);
         if (jsonResponse.containsKey('loggedin')) {
           DatabaseHelper.instance.saveSession(
               jsonResponse['email'],

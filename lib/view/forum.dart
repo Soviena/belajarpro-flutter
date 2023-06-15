@@ -18,7 +18,7 @@ class _ForumState extends State<Forum> {
 
   List data = [];
   var api = "http://belajarpro.online";
-  var uid = 0;
+  var uid = 1;
 
   Future<void> getData() async {
     var response = await http.get(Uri.parse(api + "/api/komunitas"));
@@ -35,6 +35,7 @@ class _ForumState extends State<Forum> {
 
   Future<void> getuid() async {
     dynamic data = await DatabaseHelper.instance.getSession();
+    print(data);
     setState(() {
       uid = data['uid'];
     });
